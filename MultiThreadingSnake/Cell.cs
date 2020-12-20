@@ -17,6 +17,7 @@ namespace MultiThreadingSnake
             Size = new Size(20, 20);
             BackColor = Color.Orange;
             Enabled = false;
+            this.BringToFront();
         }
     }
 }

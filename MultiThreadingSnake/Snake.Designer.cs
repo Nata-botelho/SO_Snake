@@ -31,6 +31,7 @@ namespace MultiThreadingSnake
         {
             this.ScoreLabel = new System.Windows.Forms.Label();
             this.FoodLabel = new System.Windows.Forms.Label();
+            this.BackGround = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ScoreLabel
@@ -52,6 +53,17 @@ namespace MultiThreadingSnake
             this.FoodLabel.Size = new System.Drawing.Size(20, 20);
             this.FoodLabel.TabIndex = 1;
             // 
+            // BackGround
+            // 
+            this.BackGround.BackColor = System.Drawing.Color.Transparent;
+            this.BackGround.Location = new System.Drawing.Point(0, 60);
+            this.BackGround.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.BackGround.Name = "BackGround";
+            this.BackGround.Size = new System.Drawing.Size(1000, 700);
+            this.BackGround.TabIndex = 0;
+            this.BackGround.Text = "label1";
+            this.BackGround.Visible = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -59,12 +71,15 @@ namespace MultiThreadingSnake
             this.ClientSize = new System.Drawing.Size(1024, 681);
             this.Controls.Add(this.FoodLabel);
             this.Controls.Add(this.ScoreLabel);
+            this.Controls.Add(this.BackGround);
             this.Font = new System.Drawing.Font("Microsoft PhagsPa", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MultiThreadingSnake";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mainInput);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -74,6 +89,7 @@ namespace MultiThreadingSnake
 
         private System.Windows.Forms.Label ScoreLabel;
         public System.Windows.Forms.Label FoodLabel;
+        private System.Windows.Forms.Label BackGround;
     }
 }
 
