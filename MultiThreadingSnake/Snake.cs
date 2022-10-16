@@ -8,10 +8,10 @@ namespace MultiThreadingSnake
 {
     public partial class Main : Form
     {
-        int cols = 50, rows = 34, score = -1, HEAD = 0, TAIL = 0, nx = 0, ny = 0; //colunas, linhas, pontos, marcador inicial, fim da cobra, next x, next y
-        bool[,] bodyLocation;           //matriz que guarda as posições atuais de todas as celulas da cobra
+        int cols = 50, rows = 34, score = -1, HEAD = 0, TAIL = 0, nx = 0, ny = 0;   //columns, rows, score, initial mark, snake's end, next x, next y
+        bool[,] bodyLocation;                                                       //store actual positions of all snake cell's
         bool gameOver = false, lockMoveThread;
-        Cell[] snake = new Cell[1250];  //array de celulas que forma a cobra
+        Cell[] snake = new Cell[1250];                                              //snake's body
         List<int> available = new List<int>();
 
         Random rand = new Random();
@@ -27,10 +27,9 @@ namespace MultiThreadingSnake
             LaunchTimer();
             startThreads();
             initialScreen = initial;
-
         }
 
-        //inicia as variáveis necessárias
+        //Initialize all variables
         private void GameStart()
         {
             bodyLocation = new bool[rows + 1, cols + 1];
@@ -54,7 +53,7 @@ namespace MultiThreadingSnake
             Controls.Add(head);
         }
 
-        //lança o timer que controla o fps do jogo
+        //Start timer to control game fps
         private void LaunchTimer()
         {
             timer.Interval = 100;
@@ -62,7 +61,7 @@ namespace MultiThreadingSnake
             timer.Start();
         }
 
-        //declara e inicia as threads
+        //Declare and start threads
         private void startThreads()
         {
             Thread colliderCheckThread = new Thread(checkColliders)
@@ -78,7 +77,7 @@ namespace MultiThreadingSnake
             foodManagerThread.Start();
         }
 
-        //checa constantemente se a cobra colidiu com ela mesma ou com as bordas
+        //Check if snake collides with itself or with the walls
         private void checkColliders()
         {
             int x, y;
@@ -115,7 +114,7 @@ namespace MultiThreadingSnake
             }
         }
 
-        //checa constantemente as comidas no campo e faz surgir novas quando necessário
+        //Check the foods in field and create new ones
         private void foodManager()
         {
             while (!gameOver)
@@ -126,7 +125,7 @@ namespace MultiThreadingSnake
             }
         }
 
-        //faz que uma nova comida seja criada
+        //Create a new food
         private void newFoodLocation(Label fdLabel)
         {
             available.Clear();
@@ -159,7 +158,6 @@ namespace MultiThreadingSnake
             
         }
 
-        //aumenta o placar de pontuação
         private void increaseScore()
         {
             score += 1;
@@ -179,7 +177,7 @@ namespace MultiThreadingSnake
                 ScoreLabel.Text = "Score: " + score.ToString();
         }
        
-        //executa o movimento da cobra
+        //Snake's moviment
         private void move(object sender, EventArgs e)
         {
             if (nx == 0 && ny == 0) return;
@@ -219,13 +217,13 @@ namespace MultiThreadingSnake
 
         }
 
-        //checa se a cobra chocou consigo mesma
+        //Check if crashed with itself
         private bool itselfCrash(int row, int col)
         {
             return (bodyLocation[row, col]);
         }
 
-        //checa se a comida foi coletada
+        //Check if food was collected
         private bool collectFood(int x, int y)
         {
             if (FoodLabelRed.Location.X == x && FoodLabelRed.Location.Y == y)
@@ -234,7 +232,7 @@ namespace MultiThreadingSnake
             return false;
         }
 
-        //checa se a cobra se chocou com as bordas
+        //Check if snake crashed with a wall
         private bool crashBorder(int x, int y)
         {
             if (x < 0 || x > 1000 || y < 0 || y > 660)
